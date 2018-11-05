@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	servaddr.sin_port        = htons(8080);
 
-	bind(listenfd, (struct servaddr *) &servaddr, sizeof(servaddr));
+	bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
 	listen(listenfd, 10);
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 
 		if (FD_ISSET(listenfd, &rset)) {	/* new client connection */
 			clilen = sizeof(cliaddr);
-			connfd = accept(listenfd, (struct servaddr*) &cliaddr, &clilen);
+			connfd = accept(listenfd, (struct sockaddr*) &cliaddr, &clilen);
 #ifdef	NOTDEF
 			printf("new client: %s, port %d\n",
 					Inet_ntop(AF_INET, &cliaddr.sin_addr, 4, NULL),
